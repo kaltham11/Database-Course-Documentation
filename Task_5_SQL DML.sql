@@ -252,10 +252,64 @@ INSERT INTO BookCategories (BookID, CategoryID) VALUES
 (55, 5),  -- AI for Kids -> Children
 (56, 6);  -- Omani Folklore -> Culture
 
+UPDATE Members
+SET Membership_Type = 'Premium'
+WHERE Member_ID = 1;
+
+SELECT *
+From Members
+
+UPDATE Borrowing
+SET Status = 'Returned',
+    ReturnDate = GETDATE()  
+WHERE Status = 'Borrowed';
+
+SELECT *
+From Borrowing
+
+SELECT *
+From Books
+
+UPDATE Books
+SET Available_Copies = Available_Copies + 1
+FROM Books
+JOIN Borrowing ON Books.Book_ID = Borrowing.BookID
+WHERE Borrowing.Status = 'Returned' 
+      AND Borrowing.ReturnDate = CAST(GETDATE() AS DATE);
 
 
 
+SELECT *
+From Books
 
+
+UPDATE Fines
+SET Status = 'Paid',
+    PaymentDate = GETDATE() 
+WHERE Status = 'Pending';
+
+SELECT *
+From Fines
+
+SELECT *
+From Reservations
+
+DELETE FROM Reservations
+WHERE Status = 'Expired';
+
+
+SELECT *
+From Members
+
+SELECT * 
+FROM Borrowing
+
+SELECT MemberID, Status
+FROM Borrowing
+WHERE Status IN ('Borrowed', 'Overdue');
+
+DELETE FROM Members
+WHERE Member_ID = 11;
 
 
 
